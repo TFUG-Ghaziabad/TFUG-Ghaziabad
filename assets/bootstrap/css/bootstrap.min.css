@@ -12249,6 +12249,27 @@ fieldset:disabled .btn {
     overflow-clip-margin: content-box;
 
 }
+.image-organizers{
+    box-shadow: #999 0px 0px 10px 3px;
+    border-radius: 50%;
+    width:200px;
+    height:200px;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image-speakers{
+    border-radius: 50%;
+    width:200px;
+    height:200px;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .gradient {
     background: linear-gradient(120deg, #ff6f00, #ff9100);
