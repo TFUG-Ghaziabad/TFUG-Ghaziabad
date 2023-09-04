@@ -12293,6 +12293,15 @@ fieldset:disabled .btn {
     background: linear-gradient(120deg, #ff6f00, #ff9100);
     color: white
 }
+.social-page{
+    background: linear-gradient(120deg, #ff6f00, #ff9100);
+    height: 100vh;
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
 .gradient.page-footer {
     border-top: none
