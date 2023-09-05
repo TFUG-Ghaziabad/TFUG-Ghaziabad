@@ -6449,6 +6449,9 @@ fieldset:disabled .btn {
 }
 
 @media(max-width: 575.98px) {
+    .logo-fp{
+        width: 18em!important;
+    }
     .headerimage-tf-event{
        width: 100%!important;
        height: auto!important; 
@@ -12253,6 +12256,9 @@ fieldset:disabled .btn {
     align-items: center;
     text-align: center;
 
+}
+.logo-fp{
+    width: 30em;
 }
 
 .headerimage-tf {
