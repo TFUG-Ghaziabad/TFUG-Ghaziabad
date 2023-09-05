@@ -16,6 +16,41 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicon_io/site.webmanifest">
+    <style>
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: #ff9100;
+            color: white;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: left!important;
+        }
+
+        .speaker-img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .collapse.show {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,35 +79,138 @@
                 <div style="text-align: center;">
                     <img class="headerimage-tf-event" src="/assets/img/events/image1-post.jpg" alt="Image">
                 </div>
-                <div style="border-radius: 13px;padding: 40px;box-shadow: #999 0px 0px 10px 2px;margin: 10px;" class="row">
+                <div style="border-radius: 13px;padding: 40px;box-shadow: #999 0px 0px 10px 2px;margin: 10px;"
+                    class="row">
                     <h1 style="padding-bottom:30px;">Details</h1>
-                    <p>📢 Exciting News! 🚀 Mark your calendars for the Launch Event of TensorFlow User Group Ghaziabad, organised by TFUG Ghaziabad Team!</p>
+                    <p>📢 Exciting News! 🚀 Mark your calendars for the Launch Event of TensorFlow User Group Ghaziabad,
+                        organised by TFUG Ghaziabad Team!</p>
 
-                    <p>It's completely free and hosts technical speakers and startups working on bleeding tech in Tensorflow
+                    <p>It's completely free and hosts technical speakers and startups working on bleeding tech in
+                        Tensorflow
                         space!</p>
 
                     <p>🙌🏼🌐 The TFUG Community Insights and Upcoming Events Showcase is an interactive event tailored
-                        for members and enthusiasts of the TensorFlow User Group. <br><br>The event will offer attendees a
+                        for members and enthusiasts of the TensorFlow User Group. <br><br>The event will offer attendees
+                        a
                         detailed glimpse into the various enriching activities, workshops, and educational opportunities
-                        that TFUG has planned for the near future.<br><br> With a focus on enhancing skills, knowledge, and
+                        that TFUG has planned for the near future.<br><br> With a focus on enhancing skills, knowledge,
+                        and
                         networking, this event serves as a hub of information and engagement for tech enthusiasts..</p>
 
                     <p>🗓 <b>Date:</b> September 10th, 2023 (Sunday)</p>
 
                     <p>🎯 <b>Theme:</b> Launch Event 🥂</p>
 
-                    <p>⏰ <b>Time:</b> Starting from 10:15 am - 11:15 pm</p>
+                    <p>⏰ <b>Time:</b> Starting from 10:00 am - 1:00 pm</p>
 
                     <p>📍 <b>Location:</b> Online ( Will be Shared Through Email )</p>
 
                     <p style="margin-bottom: 30px;">Register here: <a style="font-weight: bold;color: #ff9100;"
                             href="https://www.commudle.com/fill-form/1913">Attendee Registration</a></p>
-                        
 
-                            <h6 style="text-align: center;"><b>If you want to collaborate with us as a volunteer or speaker, please refer to the given link below and sign up. <br><br> We would love to have you on our team!</b></h6>
 
-                            <h6><b>Sign up here : </b><a style="font-weight: bold;color: #ff9100;" href="/collaborations.html">Join Us</a></h6>
+                    <h6 style="text-align: center;"><b>If you want to collaborate with us as a volunteer or speaker,
+                            please refer to the given link below and sign up. <br><br> We would love to have you on our
+                            team!</b></h6>
+
+                    <h6><b>Sign up here : </b><a style="font-weight: bold;color: #ff9100;"
+                            href="/collaborations.html">Join Us</a></h6>
                 </div>
+                <div style="border-radius: 13px; padding: 40px; box-shadow: #999 0px 0px 10px 2px; margin: 10px; margin-top: 20px;" class="row">
+                    <h1 style="padding-bottom:30px;text-align: center;">Event's Speakers</h1>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="clickable-container" data-toggle="collapse" data-target="#speaker1">
+                                <img src="/assets/img/avatars/shivay.jpeg" class="card-img-top speaker-img" alt="Speaker 1 Image">
+                                <div class="card-header">
+                                    Shivay Lamba
+                                </div>
+                            </div>
+                            <div id="speaker1" class="collapse">
+                                <div style="text-align: left;" class="card-body">
+                                    <h6>Introduction to AI in 2023</h6>
+                                    <ul>
+                                        <li>Explore the relevance of AI in 2023.</li>
+                                        <li>Learn how to get started with AI.</li>
+                                        <li>Discover the emerging trends in AI.</li>
+                                        <li>Understand how TensorFlow contributes to modern AI development and research.</li>
+                                    </ul>
+                                    <b>Join us in this session to explore these topics in-depth.</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="clickable-container" data-toggle="collapse" data-target="#speaker2">
+                                <img src="/assets/img/avatars/rahat.jpeg" class="card-img-top speaker-img" alt="Speaker 2 Image">
+                                <div class="card-header">
+                                    Rahat Nazish
+                                </div>
+                            </div>
+                            <div id="speaker2" class="collapse">
+                                <div class="card-body">
+                                    <h6>Exploring Machine Learning</h6>
+                                    <ul>
+                                        <li>Introduction & historical view of Machine Learning.</li>
+                                        <li>Advantages of pursuing a career in Machine Learning.</li>
+                                        <li>Freshers in the Field of Machine Learning.</li>
+                                        <li>The future of a Machine Learning engineer - Promising prospects.</li>
+                                    </ul>                                    
+                                    <b>Join me to expand your perspective on ML.</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="clickable-container" data-toggle="collapse" data-target="#speaker3">
+                                <img src="https://pbs.twimg.com/profile_images/1677630688928108544/kJrY8RYT_400x400.jpg" class="card-img-top speaker-img" alt="Speaker 3 Image">
+                                <div class="card-header">
+                                    Aashi Dutt
+                                </div>
+                            </div>
+                            <div id="speaker3" class="collapse">
+                                <div style="text-align: left;" class="card-body">
+                                    <h6>TensorFlow User Groups</h6>
+                                    <ul>
+                                        <li>The session covers major questions about TensorFlow and TFUGs.</li>
+                                        <li>We will discuss Benefits of joining a TFUG community.</li>
+                                        <li>Also learn about collaboration and contribution to tech communities.</li>
+                                    </ul>                                    
+                                    <b>Join me to get in-depth knowledge of TFUGs.</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="clickable-container" data-toggle="collapse" data-target="#speaker4">
+                                <img src="/assets/img/avatars/sumit_tyagi.jpg" class="card-img-top speaker-img" alt="Speaker 4 Image">
+                                <div class="card-header">
+                                    Sumit Tyagi
+                                </div>
+                            </div>
+                            <div id="speaker4" class="collapse">
+                                <div style="text-align: left;" class="card-body">
+                                    <h6>ML Metamorphosis - MLOps</h6>
+                                    <ul>
+                                        <li>ML model lifecycle.</li>
+                                        <li>Serving patterns & deployment strategies.</li>
+                                        <li>Sentiment analysis with FastAPI & Docker.</li>
+                                        <li>Load testing and latency checks using JMeter.</li>
+                                        <li>Scaling to 10,000+ users with Kubernetes.</li>
+                                    </ul>
+                                    <b>Join me in the session to learn more about ML Metamorphosis.</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </section>
     </main>
@@ -108,6 +246,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

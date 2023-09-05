@@ -4488,7 +4488,7 @@ fieldset:disabled .btn {
     }
 }
 .nav-link.active{
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif!important;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .nav-link:hover,
