@@ -6449,6 +6449,16 @@ fieldset:disabled .btn {
 }
 
 @media(max-width: 575.98px) {
+    .bottom-background{
+        width: 100%!important;
+    }
+    .top-background-tf {
+        width: 60%;
+    }
+    .bottom-background-tf {
+        width: 50%;
+        bottom: -60%;
+    }
     .logo-fp{
         width: 18em!important;
     }
@@ -8824,6 +8834,40 @@ fieldset:disabled .btn {
 
 .bg-gradient {
     background-image: var(--bs-gradient) !important
+}
+.background-tf {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover; /* Adjusts the image to cover the entire viewport */
+    z-index: -1;
+ }
+ 
+ .top-background-tf {
+    background-image: url('https://www.tensorflow.org/site-assets/images/marketing/hero-river-bg-left-large.svg'); /* Path to your top image */
+    background-size: contain;
+    width: 30%;
+    top: 0;
+    left: 0;
+ }
+ 
+ .bottom-background-tf {
+    background-image: url('https://www.tensorflow.org/site-assets/images/marketing/hero-river-bg-right.svg'); /* Path to your bottom image */
+    background-size: contain;
+    width: 70%;
+    bottom: -40%;
+    right: 0;
+ }
+.bottom-background{
+    background-image: url('https://www.tensorflow.org/site-assets/images/marketing/hero-river-bg-right.svg'); /* Path to your top image */
+    background-size: cover; /* Adjusts the image to cover the entire container */
+    position: absolute;
+    right: 0;
+    height: 60vh;
+    width: 60%;
+    background-repeat: no-repeat;
+    z-index: -1;
 }
 .tensorsite-button {
     background-color: white;
