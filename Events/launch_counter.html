@@ -103,9 +103,9 @@
 
         @media screen and (max-width: 767px) {
             .text-countdown {
-                top: 35vh;
-                left: 35%;
-                transform: translate(-25%, -50%);
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: large;
             }
 
             /* Adjust styles for mobile devices */
@@ -115,7 +115,7 @@
             }
 
             .countdown {
-                font-size: 20px;
+                font-size: 10px;
                 /* Adjust font size for smaller screens */
             }
 
@@ -130,15 +130,18 @@
             }
 
             .countdown .flip-clock-divider .flip-clock-label {
-                font-size: 13px;
+                font-size: 10px;
+                right: -5.25em!important;
                 /* Adjust font size for mobile */
-                margin: 5px;
+                margin: 0;
                 /* Reduce margin for smaller screens */
+                padding: 0;
             }
 
             .flip-clock-wrapper ul {
                 width: fit-content;
-                margin: 4px;
+                margin: 3px;
+                padding: 15px;
             }
 
             .top-background-tf {
