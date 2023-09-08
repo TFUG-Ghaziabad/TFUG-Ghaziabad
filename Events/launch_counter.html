@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.7/flipclock.css">
+    <style>
+        /* Center the countdown wrapper vertically and horizontally */
+        .countdown-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            min-height: 85vh;
+            padding-top: 10vh;
+
+        }
+
+        /* Style the clock container */
+        .countdown {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* Style the clock face (digits) */
+        .flip-clock-wrapper {
+            background-color: #ffffff00;
+            border-radius: 5px;
+            padding: 10px;
+            width: auto;
+        }
+
+        .flip-clock-wrapper .flip {
+            box-shadow: 0px 0px 3px #999;
+        }
+
+        /* Style the clock digits */
+        .flip-clock-digit {
+            background-color: #ffffff;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .flip-clock-dot {
+            background-color: #425066;
+        }
+
+        /* Style the clock labels (days, hours, minutes, seconds) */
+        .flip-clock-label {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .countdown.flip-clock-wrapper ul li a div div.inn {
+            background-color: #ffffff;
+            color: #FF6F00;
+            text-shadow: #999 0px 0px 3px;
+        }
+
+        .countdown .flip-clock-divider .flip-clock-label {
+            color: #425066;
+            font-weight: bolder;
+
+        }
+
+        .bottom-background-tf1 {
+            background-image: url('https://www.tensorflow.org/site-assets/images/marketing/hero-river-bg-right.svg');
+            background-size: contain;
+            position: fixed;
+            width: 50%;
+            top: 40%;
+            right: 0px;
+            overflow: hidden;
+        }
+
+        .text-countdown {
+            position: absolute;
+            top: 28vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 0;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #425066;
+            font-weight: bolder;
+
+        }
+
+        @media screen and (max-width: 767px) {
+            .text-countdown {
+                top: 35vh;
+                left: 35%;
+                transform: translate(-25%, -50%);
+            }
+
+            /* Adjust styles for mobile devices */
+            .countdown-wrapper {
+                min-height: 85vh;
+                /* Increase the minimum height for mobile */
+            }
+
+            .countdown {
+                font-size: 20px;
+                /* Adjust font size for smaller screens */
+            }
+
+            .countdown.flip-clock-wrapper {
+                margin: 5px;
+                /* Reduce margin for smaller screens */
+            }
+
+            .countdown.flip-clock-wrapper ul li a div div.inn {
+                font-size: 25px;
+                /* Increase font size for mobile */
+            }
+
+            .countdown .flip-clock-divider .flip-clock-label {
+                font-size: 13px;
+                /* Adjust font size for mobile */
+                margin: 5px;
+                /* Reduce margin for smaller screens */
+            }
+
+            .flip-clock-wrapper ul {
+                width: fit-content;
+                margin: 4px;
+            }
+
+            .top-background-tf {
+                width: 100%;
+            }
+
+            .bottom-background-tf1 {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler"
+                data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav"><img style="margin-right: 10px ;"
+                    class="border rounded-pill border-0" src="https://i.ibb.co/86XxJxq/Untitled-1.png" width="30px">
+                <b>
+                    <h5 style="color: #ffffff; font-weight: bolder;margin-top: 5px;">TFUG Ghaziabad</h5>
+                </b>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/collaborations.html">Collaborations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sponsor.html">Sponsor Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main style="min-height:85vh">
+        <div class="background-tf top-background-tf"></div>
+        <h1 class="text-countdown">Time Before Launch</h1>
+        <div class="countdown-wrapper">
+            <div id="countdown" class="countdown"></div>
+        </div>
+        <div class="background-tf bottom-background-tf1"></div>
+
+    </main>
+    <footer class="bg-warning text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/"
+                    role="button"><i class="fab fa-instagram"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/"
+                    role="button"><i class="fab fa-linkedin-in"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad"
+                    role="button"><i class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" style="text-decoration: none; font-weight: bold;"
+                href="https://tfug-ghaziabad.tech/">TFUG Ghaziabad</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.7/flipclock.js"></script>
+    <script>
+        // Initialize countdown
+        function initCountdown() {
+            var countdown = new FlipClock($('.countdown'), {
+                clockFace: 'DailyCounter', // Use 'DailyCounter' for days and hours
+                language: 'en',
+                autoStart: false,
+                countdown: true,
+                showSeconds: true,
+                callbacks: {
+                    start: function () {
+                        console.log('The clock has started!');
+                    },
+                    stop: function () {
+                        console.log('The clock has stopped!');
+                    },
+                    interval: function () {
+                        var time = this.factory.getTime().time;
+                        if (time) {
+                            console.log('Clock interval', time);
+                        }
+                    }
+                }
+            });
+
+            return countdown;
+        }
+
+        // Set countdown timer to end on September 10th at 10:00 AM
+        function setCountdown() {
+            if (countdown.running) {
+                return;
+            }
+
+            var targetDate = new Date('2023-09-10T10:00:00');
+            var now = new Date();
+            var timeDifference = targetDate - now;
+
+            if (timeDifference < 0) {
+                // The target time has already passed.
+                console.log('The specified time has already passed.');
+                return;
+            }
+
+            var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            var timeInSeconds = days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
+
+            countdown.setTime(timeInSeconds);
+            countdown.start();
+        }
+
+        var countdown = initCountdown();
+        setCountdown();
+
+    </script>
+</body>
+
+</html>
