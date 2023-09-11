@@ -58,6 +58,12 @@
             width: 600px;
             height: 400px;
         }
+        @media(max-width: 575.98px) {
+            .pdf-window{
+            width: 300px;
+            height: 200px;
+        }
+        }
     </style>
     <!-- Firebase scripts -->
     <script type="module">
@@ -146,7 +152,7 @@
                     <li><span id="certificateDetails"></span></li>
                     </ul>
                     <br><br>
-                        <iframe class="pdf-window" id="pdfFrame"></iframe><br><br>
+                        <iframe class="pdf-window" id="pdfFrame" ></iframe><br><br>
                         <b>You can download the certificate using the link below:</b><br>
                     <button type="button" class="tensorsite-button" id="downloadButton">Download Certificate</button>
                 </div>
