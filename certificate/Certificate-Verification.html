@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Certificate Verifier</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon_io/site.webmanifest">
+    <style>
+        /* Custom CSS for maintaining aspect ratio */
+        .certificate-card {
+            position: relative;
+            width: 100%;
+            /* Adjust the width as needed */
+            margin: 0 auto;
+            /* Center the card horizontally */
+            background-color: #fff;
+            border: 2px solid #FF6F00;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10vh;
+            padding: 2em;
+        }
+
+        /* Form styling */
+        .certificate-form {
+            margin-top: 20px;
+        }
+
+        .form-label {
+            font-family: 'Lato', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .form-control {
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .tensorsite-button {
+            margin-top: 0.75em;
+        }
+        .pdf-window{
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+    <!-- Firebase scripts -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js"; // Add this import
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXDj_FEI29Jo6FugcWq6y-fNu-BBMTSzk",
+            authDomain: "tfug-ghaziabad.firebaseapp.com",
+            databaseURL: "https://tfug-ghaziabad-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tfug-ghaziabad",
+            storageBucket: "tfug-ghaziabad.appspot.com",
+            messagingSenderId: "420942905857",
+            appId: "1:420942905857:web:fc2e11148a44a8a26b3600",
+            measurementId: "G-54KYD9KDRT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app); // Initialize the Firebase Realtime Database
+
+        function fetchDataAndDisplay() {
+            const dataRef = ref(database, "/"); // Replace with your data path
+
+            get(dataRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        localStorage.setItem("certificateData", JSON.stringify(data));
+                    } else {
+                        console.log("No data available");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+        window.onload = fetchDataAndDisplay;
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler"
+                data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav"><img style="margin-right: 10px ;"
+                    class="border rounded-pill border-0" src="https://i.ibb.co/86XxJxq/Untitled-1.png" width="30px">
+                <b>
+                    <h5 style="color: #ffffff; font-weight: bolder;margin-top: 5px;">TFUG Ghaziabad</h5>
+                </b>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/collaborations.html">Collaborations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sponsor.html">Sponsor Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="page hire-me-page" style="min-height:85vh">
+        <div class="container mt-5">
+            <h1>Certificate Verification</h1>
+            <form>
+                <div class="mb-3">
+                    <label for="certificateID" class="form-label">Certificate ID:</label>
+                    <input type="text" class="form-control" id="certificateID" name="certificateID" required>
+                </div>
+                <button type="button" class="tensorsite-button" onclick="verifyCertificate()">Verify</button>
+            </form>
+        </div>
+        <div class="container mt-5" id="certificateInfo" style="display: none;">
+            <div class="certificate-card card">
+                <div class="card-content">
+                    <h1 class="text-center">Certificate of Attendance</h1><br><br>
+                    <ul>
+                        <li>This is to certify that <span id="certificateName"></span> has attended the <span
+                            id="eventName"></span> held on <span id="eventDate">.</span></li>
+                        <br><br>
+                    <li><span id="eventDescription"></span></li>
+                        <br><br>
+                    <li><span id="certificateDetails"></span></li>
+                    </ul>
+                    <br><br>
+                        <iframe class="pdf-window" id="pdfFrame"></iframe><br><br>
+                        <b>You can download the certificate using the link below:</b><br>
+                    <button type="button" class="tensorsite-button" id="downloadButton">Download Certificate</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</body>
+<footer class="bg-warning text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/"
+                role="button"><i class="fab fa-instagram"></i></a>
+
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/"
+                role="button"><i class="fab fa-linkedin-in"></i></a>
+
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad" role="button"><i
+                    class="fab fa-github"></i></a>
+        </section>
+        <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+        <a class="text-white" style="text-decoration: none; font-weight: bold;" href="https://tfug-ghaziabad.tech/">TFUG
+            Ghaziabad</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+<script>
+    function verifyCertificate() {
+        const certificateID = document.getElementById("certificateID").value;
+
+        // Retrieve the data from localStorage
+        const storedData = localStorage.getItem("certificateData");
+
+        if (storedData) {
+            // Parse the JSON data from localStorage
+            const fetchedData = JSON.parse(storedData);
+
+            // Check if the data contains the 'certificates' property
+            if (fetchedData.certificates) {
+                // Search for the certificate in the fetched data
+                const certificate = fetchedData.certificates[certificateID];
+
+                if (certificate) {
+                    const certificateName = certificate.name;
+
+                    // Get event details from the fetched data
+                    const eventDetails = fetchedData.event;
+
+                    // Display both certificate and event details
+                    document.getElementById("certificateName").textContent = certificateName;
+                    document.getElementById("certificateDetails").textContent = `This certificate is awarded by TFUG Ghaziabad for ${certificateName}'s outstanding dedication to learn, demonstrated by attending the program.`;
+                    document.getElementById("eventName").textContent = `${eventDetails.eventName}`;
+                    document.getElementById("eventDate").textContent = `${eventDetails.date}`;
+                    document.getElementById("eventDescription").textContent = `${eventDetails.description}`;
+                    document.getElementById('pdfFrame').src = `${certificate.URL}`;
+                    document.getElementById("downloadButton").onclick = function() {
+                        window.location.href = `${certificate.URL}`;
+                    };
+
+                    document.getElementById("certificateInfo").style.display = "block";
+                } else {
+                    alert("Certificate not found.");
+                }
+            } else {
+                alert("No certificate data found.");
+            }
+        } else {
+            console.log("Certificate data not found in localStorage.");
+        }
+    }
+
+
+</script>
+
+</html>
