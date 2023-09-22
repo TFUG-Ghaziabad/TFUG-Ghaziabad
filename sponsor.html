@@ -16,6 +16,66 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicon_io/site.webmanifest">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js"; // Import the correct Firestore functions
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXDj_FEI29Jo6FugcWq6y-fNu-BBMTSzk",
+            authDomain: "tfug-ghaziabad.firebaseapp.com",
+            databaseURL: "https://tfug-ghaziabad-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tfug-ghaziabad",
+            storageBucket: "tfug-ghaziabad.appspot.com",
+            messagingSenderId: "420942905857",
+            appId: "1:420942905857:web:fc2e11148a44a8a26b3600",
+            measurementId: "G-54KYD9KDRT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const firestore = getFirestore(app); // Initialize Firestore
+
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent the form from submitting normally
+
+            // Get form input values
+            const name = form.querySelector('#name').value;
+            const org = form.querySelector('#org').value;
+            const sponsorEvent = form.querySelector('#subject').value;
+            const email = form.querySelector('#email').value;
+            const contact = form.querySelector('#contact').value;
+            const message = form.querySelector('#message').value;
+
+            // Create an object with the form data
+            const sponsorData = {
+                name,
+                org,
+                sponsorEvent,
+                email,
+                contact,
+                message,
+            };
+
+            try {
+                // Add the form data to Firestore
+                const docRef = await addDoc(collection(firestore, 'sponsorDetails'), sponsorData);
+
+                // Clear the form after submission
+                form.reset();
+
+                // Optionally, you can display a success message to the user
+                alert('Sponsorship request successful!');
+            } catch (error) {
+                console.error('Error adding document: ', error);
+                // Handle errors, e.g., display an error message to the user
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -45,23 +105,31 @@
                 <div class="heading">
                     <h2>Sponsor Us</h2>
                 </div>
-                <form action="https://formspree.io/f/mpzgrpzy"
-                method="POST">
-                    <div class="mb-3"><label class="form-label" for="name">Name</label><input class="form-control" placeholder="Your Name" type="text" name="Name" id="name"></div>
-                    <div class="mb-3"><label class="form-label" for="org">Organisation</label><input class="form-control" placeholder="Your Organisation Name ( If Any!! )" name="Organisation" type="text" id="org"></div>
-                    <div class="mb-3"><label class="form-label" for="subject">Event</label><select class="form-select" name="Sponsor Event" id="subject">
+                <form method="POST">
+                    <div class="mb-3"><label class="form-label" for="name">Name</label><input class="form-control"
+                            placeholder="Your Name" type="text" name="Name" id="name"></div>
+                    <div class="mb-3"><label class="form-label" for="org">Organisation</label><input
+                            class="form-control" placeholder="Your Organisation Name ( If Any!! )" name="Organisation"
+                            type="text" id="org"></div>
+                    <div class="mb-3"><label class="form-label" for="subject">Event</label><select class="form-select"
+                            name="Sponsor Event" id="subject">
                             <optgroup label="Event you want to sponsor for">
                                 <option value="Launch Event" selected="">Launch Event</option>
                                 <option value="Keras Community Day">Keras Community Day</option>
                                 <option value="Upcomming Event">Upcomming Event ( To be decided... )</option>
                             </optgroup>
                         </select></div>
-                    <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control" placeholder="name@workmail.com" name="Email" type="email" id="email"></div>
-                    <div class="mb-3"><label class="form-label" for="contact">Other Mode of Contact</label><input class="form-control" name="Contact" type="text" placeholder="Preferred whatsapp / Phone Number" id="contact"></div>
-                    <div class="mb-3"><label class="form-label" for="message">Organisation Description</label><textarea class="form-control" name="Message" id="message"></textarea></div>
+                    <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control"
+                            placeholder="name@workmail.com" name="Email" type="email" id="email"></div>
+                    <div class="mb-3"><label class="form-label" for="contact">Other Mode of Contact</label><input
+                            class="form-control" name="Contact" type="text"
+                            placeholder="Preferred whatsapp / Phone Number" id="contact"></div>
+                    <div class="mb-3"><label class="form-label" for="message">Organisation Description</label><textarea
+                            class="form-control" name="Message" id="message"></textarea></div>
                     <div class="mb-3">
                         <div class="row">
-                            <div class="col-md-6"><button class="tensorsite-button" type="submit">Sponsor Us</button></div>
+                            <div class="col-md-6"><button class="tensorsite-button" type="submit">Sponsor Us</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -75,16 +143,16 @@
             <!-- Section: Social media -->
             <section class="mb-4">
                 <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/" role="button"><i
-                        class="fab fa-instagram"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/"
+                    role="button"><i class="fab fa-instagram"></i></a>
 
                 <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/" role="button"><i
-                        class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/"
+                    role="button"><i class="fab fa-linkedin-in"></i></a>
 
                 <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad" role="button"><i
-                        class="fab fa-github"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad"
+                    role="button"><i class="fab fa-github"></i></a>
             </section>
             <!-- Section: Social media -->
         </div>
