@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon_io/site.webmanifest">
+
+
+ <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js"; // Import the `firebase-firestore.js` module
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDXDj_FEI29Jo6FugcWq6y-fNu-BBMTSzk",
+        authDomain: "tfug-ghaziabad.firebaseapp.com",
+        databaseURL: "https://tfug-ghaziabad-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "tfug-ghaziabad",
+        storageBucket: "tfug-ghaziabad.appspot.com",
+        messagingSenderId: "420942905857",
+        appId: "1:420942905857:web:fc2e11148a44a8a26b3600",
+        measurementId: "G-54KYD9KDRT"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const firestore = getFirestore(app); // Initialize Firestore
+
+    const form = document.getElementById('registration-form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent the form from submitting normally
+
+        // Get form input values
+        const name = form.querySelector('#name').value;
+        const email = form.querySelector('#email').value;
+        const phone = form.querySelector('#phone').value;
+        const position = form.querySelector('#position').value;
+        const social = form.querySelector('#social').value;
+        const project = form.querySelector('#project').value;
+
+        // Create an object with the form data
+        const formData = {
+            name,
+            email,
+            phone,
+            position,
+            social,
+            project,
+        };
+
+        try {
+            // Add the form data to Firestore
+            const docRef = await addDoc(collection(firestore, 'teamRegistrations'), formData);
+
+            // Clear the form after submission
+            form.reset();
+
+            // Optionally, you can display a success message to the user
+            alert('Registration successful!');
+        } catch (error) {
+            console.error('Error adding document: ', error);
+            // Handle errors, e.g., display an error message to the user
+        }
+    });
+</script>
+
+    
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler"
+                data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav"><img style="margin-right: 10px ;"
+                    class="border rounded-pill border-0" src="https://i.ibb.co/86XxJxq/Untitled-1.png" width="30px">
+                <b>
+                    <h5 style="color: #ffffff; font-weight: bolder;margin-top: 5px;">TFUG Ghaziabad</h5>
+                </b>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/collaborations.html">Collaborations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sponsor.html">Sponsor Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="page hire-me-page" style="min-height:85vh">
+        <section class="portfolio-block hire-me">
+            <div class="background-tf top-background-tf"></div>
+            <div class="container">
+                <div class="heading">
+                    <h2>Registration Form for Core Team</h2>
+                </div>
+                <form method="POST" id="registration-form">
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Name<span class="text-danger">*</span></label>
+                        <input class="form-control" placeholder="Your Name" type="text" name="Name" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="email">Email<span class="text-danger">*</span></label>
+                        <input class="form-control" placeholder="name@mail.com" type="email" name="Email" id="email"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="phone">Phone<span class="text-danger">*</span></label>
+                        <input class="form-control" placeholder="Phone Number" type="tel" name="Phone" id="phone"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="position">Position in the team<span class="text-danger">*</span></label>
+                        <select class="form-select" name="Position" id="position" required>
+                            <option value="" disabled selected>Select a Position</option>
+                            <option value="SocialMedia">Social Media Team</option>
+                            <option value="GraphicsDesigner">Graphics Designing Team</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="social">Social Handles<span class="text-danger">*</span></label>
+                        <input class="form-control" placeholder="Social links separated by  '  ,  '" type="text" name="social" id="social"
+                            required>
+                    </div>                    
+                    <div class="mb-3">
+                        <label class="form-label" for="project">Previous Project/Projects (if any)</label>
+                        <input class="form-control" placeholder="Previous project links separated by  '  ,  '" type="text" name="project" id="project">
+                    </div>                    
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6"><button class="tensorsite-button" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="background-tf bottom-background-tf"></div>
+        </section>
+    </main>
+    <footer class="bg-warning text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/"
+                    role="button"><i class="fab fa-instagram"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/"
+                    role="button"><i class="fab fa-linkedin-in"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad"
+                    role="button"><i class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" style="text-decoration: none; font-weight: bold;"
+                href="https://tfug-ghaziabad.tech/">TFUG Ghaziabad</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+</body>
+
+</html>
