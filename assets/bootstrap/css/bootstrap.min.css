@@ -4488,12 +4488,12 @@ fieldset:disabled .btn {
     }
 }
 .nav-link.active{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .nav-link:hover,
 .nav-link:focus {
-    color: #0b80cc
+    color: #FF6F00;
 }
 
 .nav-link.disabled {
