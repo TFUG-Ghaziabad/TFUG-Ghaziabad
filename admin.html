@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #login-container {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label,
+        input,
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-container">
+        <h2>Login Dashboard</h2>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message"></p>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXDj_FEI29Jo6FugcWq6y-fNu-BBMTSzk",
+            authDomain: "tfug-ghaziabad.firebaseapp.com",
+            databaseURL: "https://tfug-ghaziabad-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tfug-ghaziabad",
+            storageBucket: "tfug-ghaziabad.appspot.com",
+            messagingSenderId: "420942905857",
+            appId: "1:420942905857:web:fc2e11148a44a8a26b3600",
+            measurementId: "G-54KYD9KDRT"
+        };
+
+        initializeApp(firebaseConfig);
+        const database = getDatabase();
+        const auth = getAuth();
+
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Sign in the user with email and password
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Successful login
+                    const user = userCredential.user;
+                    console.log('Login successful:', user);
+                    errorMessage.innerText = '';
+
+                    // Redirect to the dashboard
+                    window.location.href = 'dashboard.html';
+                })
+                .catch((error) => {
+                    console.error('Error signing in:', error.message);
+                    errorMessage.innerText = 'Incorrect email or password';
+                });
+        });
+    </script>
+</body>
+
+</html>

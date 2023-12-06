@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        #dashboard-container {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label,
+        input,
+        button {
+            margin-bottom: 10px;
+        }
+
+        .password-section {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dashboard-container">
+        <h2>User Dashboard</h2>
+        <form id="update-form">
+            <button type="button" id="changePasswordButton">Change Password</button>
+            <div class="password-section">
+                <label for="password">Password:</label>
+                <input type="password" id="password">
+            </div>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+
+            <label for="profileLink">Profile Link:</label>
+            <input type="text" id="profileLink">
+
+            <label for="socialIds">Social IDs:</label>
+            <input type="text" id="socialIds">
+
+            <button type="submit">Update Profile</button>
+        </form>
+        <p id="update-message"></p>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getDatabase, ref, update } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+        import { getAuth, updatePassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXDj_FEI29Jo6FugcWq6y-fNu-BBMTSzk",
+            authDomain: "tfug-ghaziabad.firebaseapp.com",
+            databaseURL: "https://tfug-ghaziabad-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tfug-ghaziabad",
+            storageBucket: "tfug-ghaziabad.appspot.com",
+            messagingSenderId: "420942905857",
+            appId: "1:420942905857:web:fc2e11148a44a8a26b3600",
+            measurementId: "G-54KYD9KDRT"
+        };
+
+        initializeApp(firebaseConfig);
+        const database = getDatabase();
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // User is not authenticated, redirect to the login page
+                window.location.href = 'admin.html';
+            } else {
+                // Fetch user data on page load if authenticated
+                const userId = user.uid;
+                const userRef = ref(database, `users/${userId}`);
+                userRef.once('value').then((snapshot) => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        // Populate form fields with the retrieved data
+                        document.getElementById('name').value = userData.name || '';
+                        document.getElementById('profileLink').value = userData.profileLink || '';
+                        document.getElementById('socialIds').value = userData.socialIds || '';
+                    }
+                }).catch((error) => {
+                    console.error('Error fetching user data:', error.message);
+                });
+            }
+        });
+
+        const updateForm = document.getElementById('update-form');
+        const updateMessage = document.getElementById('update-message');
+        const passwordSection = document.querySelector('.password-section');
+        const changePasswordButton = document.getElementById('changePasswordButton');
+        const passwordField = document.getElementById('password');
+
+        // Show or hide the password section when the button is clicked
+        changePasswordButton.addEventListener('click', function () {
+            passwordSection.style.display = 'block';
+            changePasswordButton.style.display = 'none';
+        });
+
+        updateForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const password = passwordField.value;
+            const name = document.getElementById('name').value;
+            const profileLink = document.getElementById('profileLink').value;
+            const socialIds = document.getElementById('socialIds').value;
+
+            try {
+                // Update the user's password if the field is visible
+                if (passwordSection.style.display === 'block') {
+                    await updatePassword(auth.currentUser, password);
+                }
+
+                // Update additional fields in the database
+                await update(ref(database, `users/${auth.currentUser.uid}`), {
+                    name: name,
+                    profileLink: profileLink,
+                    socialIds: socialIds
+                });
+
+                updateMessage.innerText = 'Profile updated successfully!';
+            } catch (error) {
+                console.error('Error updating profile:', error.message);
+                updateMessage.innerText = 'Error updating profile. Please try again.';
+            }
+        });
+    </script>
+</body>
+
+</html>

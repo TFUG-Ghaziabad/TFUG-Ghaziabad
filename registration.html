@@ -1,0 +1,104 @@
+<!-- registration.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #registration-container {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label,
+        input,
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="registration-container">
+        <h2>User Registration</h2>
+        <form id="registration-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <p id="registration-message"></p>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXDj_FEI29Jo6FugcWq6y-fNu-BBMTSzk",
+            authDomain: "tfug-ghaziabad.firebaseapp.com",
+            databaseURL: "https://tfug-ghaziabad-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tfug-ghaziabad",
+            storageBucket: "tfug-ghaziabad.appspot.com",
+            messagingSenderId: "420942905857",
+            appId: "1:420942905857:web:fc2e11148a44a8a26b3600",
+            measurementId: "G-54KYD9KDRT"
+        };
+
+        initializeApp(firebaseConfig);
+        const database = getDatabase();
+        const auth = getAuth();
+
+        const registrationForm = document.getElementById('registration-form');
+        const registrationMessage = document.getElementById('registration-message');
+
+        registrationForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Register the user with email and password
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Successful registration
+                    const user = userCredential.user;
+                    console.log('Registration successful:', user);
+
+                    // Save additional user data to the Realtime Database
+                    set(ref(database, `users/${user.uid}`), {
+                        email: user.email,
+                        // You can add more user data here
+                    });
+
+                    registrationMessage.innerText = 'Registration successful!';
+                })
+                .catch((error) => {
+                    console.error('Error registering user:', error.message);
+                    registrationMessage.innerText = 'Error registering user. Please try again.';
+                });
+        });
+    </script>
+</body>
+
+</html>
