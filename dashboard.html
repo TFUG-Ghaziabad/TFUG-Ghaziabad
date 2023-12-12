@@ -5,15 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         #dashboard-container {
-            max-width: 400px;
+            max-width: 600px;
             margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
         }
 
         form {
@@ -30,37 +39,115 @@
         .password-section {
             display: none;
         }
+
+        #update-message {
+            margin-top: 10px;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="dashboard-container">
-        <h2>User Dashboard</h2>
-        <form id="update-form">
-            <button type="button" id="changePasswordButton">Change Password</button>
-            <div class="password-section">
-                <label for="password">Password:</label>
-                <input type="password" id="password">
-            </div>
+    <!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">Your Logo</div>
+    <ul class="nav-links">
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#logout">Logout</a></li>
+    </ul>
+</nav>
 
-            <label for="name">Name:</label>
-            <input type="text" id="name">
-
-            <label for="profileLink">Profile Link:</label>
-            <input type="text" id="profileLink">
-
-            <label for="socialIds">Social IDs:</label>
-            <input type="text" id="socialIds">
-
-            <button type="submit">Update Profile</button>
-        </form>
-        <p id="update-message"></p>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <!-- User information section -->
+    <div class="user-info">
+        <img src="user-avatar.jpg" alt="User Avatar">
+        <h3>Welcome, [Username]</h3>
     </div>
+
+    <!-- Dashboard navigation -->
+    <ul class="dashboard-nav">
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#analytics">Analytics</a></li>
+        <li><a href="#tasks">Tasks</a></li>
+        <li><a href="#messages">Messages</a></li>
+        <!-- Add more dashboard sections as needed -->
+    </ul>
+</aside>
+
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <h1>Dashboard</h1>
+    </header>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-content">
+        <div id="dashboard-container">
+            <h2 class="text-center">User Profile</h2>
+    
+            <!-- Profile Image -->
+            <img src="https://img.freepik.com/free-vector/blond-man-hairstyle-icon-isolated_24911-100834.jpg?w=1060&t=st=1701888013~exp=1701888613~hmac=07bb5951458ff71e9219b152ba723c13c5284d9f94aa8edc34c2f4e858ca98e0" alt="Profile Image" class="profile-image mx-auto d-block">
+    
+            <form id="update-form">
+                <button type="button" id="changePasswordButton" class="btn btn-secondary btn-sm">Change Password</button>
+                <div class="password-section">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+    
+                <label for="name">Name:</label>
+                <input type="text" id="name" class="form-control" required>
+    
+                <label for="profileLink">Profile Link:</label>
+                <input type="text" id="profileLink" class="form-control">
+    
+                <label for="socialIds">Social IDs:</label>
+                <input type="text" id="socialIds" class="form-control">
+    
+                <label for="bio">Bio:</label>
+                <textarea id="bio" class="form-control" rows="3"></textarea>
+    
+                <!-- Text input for updating profile image URL -->
+                <label for="profileImageUrl">Profile Image URL:</label>
+                <input type="text" id="profileImageUrl" class="form-control">
+    
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+    
+            <p id="update-message" class="text-success text-center"></p>
+        </div>
+            
+        <!-- Example: Tasks Section -->
+        <div id="tasks" class="dashboard-section">
+            <h2>Tasks</h2>
+            <!-- Add task management features, lists, etc. -->
+        </div>
+
+        <!-- Example: Messages Section -->
+        <div id="messages" class="dashboard-section">
+            <h2>Messages</h2>
+            <!-- Add messaging features, chat interface, etc. -->
+        </div>
+
+        <!-- Add more sections as needed -->
+    </section>
+</main>
 
     <script type="module">
         // Import the functions you need from the SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
-        import { getDatabase, ref, update } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+        import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
         import { getAuth, updatePassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -84,15 +171,16 @@
                 window.location.href = 'admin.html';
             } else {
                 // Fetch user data on page load if authenticated
-                const userId = user.uid;
-                const userRef = ref(database, `users/${userId}`);
-                userRef.once('value').then((snapshot) => {
+                const userRef = ref(database, `users/${auth.currentUser.uid}`);
+                get(userRef).then((snapshot) => {
                     const userData = snapshot.val();
                     if (userData) {
                         // Populate form fields with the retrieved data
                         document.getElementById('name').value = userData.name || '';
                         document.getElementById('profileLink').value = userData.profileLink || '';
                         document.getElementById('socialIds').value = userData.socialIds || '';
+                        document.getElementById('bio').value = userData.bio || '';
+                        document.getElementById('profileImageUrl').value = userData.profileImageUrl || '';
                     }
                 }).catch((error) => {
                     console.error('Error fetching user data:', error.message);
@@ -119,6 +207,8 @@
             const name = document.getElementById('name').value;
             const profileLink = document.getElementById('profileLink').value;
             const socialIds = document.getElementById('socialIds').value;
+            const bio = document.getElementById('bio').value;
+            const profileImageUrl = document.getElementById('profileImageUrl').value;
 
             try {
                 // Update the user's password if the field is visible
@@ -130,7 +220,9 @@
                 await update(ref(database, `users/${auth.currentUser.uid}`), {
                     name: name,
                     profileLink: profileLink,
-                    socialIds: socialIds
+                    socialIds: socialIds,
+                    bio: bio,
+                    profileImageUrl: profileImageUrl
                 });
 
                 updateMessage.innerText = 'Profile updated successfully!';
@@ -140,6 +232,10 @@
             }
         });
     </script>
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>
