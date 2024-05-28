@@ -11,7 +11,7 @@ class Achievement(models.Model):
 
 class TeamMember(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='team_member')
-    image = models.ImageField(upload_to='static/team-avatars/')
+    image = models.ImageField(upload_to='staticfiles/team-avatars/')
     position = models.CharField(max_length=100)
     instagram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
