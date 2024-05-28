@@ -12,7 +12,7 @@ class Event(models.Model):
     closing_time = models.TimeField()
     location = models.CharField(max_length=300)
     description = models.TextField()
-    image = models.ImageField(upload_to='staticfiles/events/')
+    image = models.ImageField(upload_to='events/')
     registration_link = models.URLField(blank=True)
     collaboration_link = models.URLField(blank=True)
     sponsorship_link = models.URLField(blank=True)
@@ -68,7 +68,7 @@ def update_event_status(sender, instance, **kwargs):
 
 class Speakers(models.Model):
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='staticfiles/speakers/')
+    image = models.ImageField(upload_to='speakers/')
     description = models.TextField()
     email = models.EmailField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
