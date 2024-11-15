@@ -35,6 +35,9 @@ def registration_view(request):
 def speaker_view(request):
     return render(request, 'speaker.html')
 
+def volunteer_view(request):
+    return render(request, 'call_for_volunteers.html')
+
 def sponsor_view(request):
     return render(request, 'sponsor.html')
 

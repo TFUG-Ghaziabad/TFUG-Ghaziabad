@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Events</title>
+    <title>URL Shortener</title>
     <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -16,6 +16,21 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/static/assets/favicon_io/site.webmanifest">
+    <style>
+        .box-findUs {
+            background-color: #ffffff;
+            width: 300px;
+            margin: auto;
+            border: #FF6F00 solid 3px;
+            border-radius: 13px;
+            padding: 3%;
+        }
+
+        hr {
+            width: 200px;
+            margin-inline: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,13 +38,14 @@
         <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler"
                 data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav"><div style="display: flex;align-items: center;">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div style="display: flex;align-items: center;">
                     <img style="margin-right:3px;margin-bottom:3px;" class="border rounded-pill border-0" src="https://i.ibb.co/86XxJxq/Untitled-1.png" width="30px">
                     <h5 style="color: #ffffff; font-weight: bolder;margin-top: 5px;">TFUG Ghaziabad</h5>
                 </div>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/events">Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events">Events</a></li>
                     <li class="nav-item"><a class="nav-link" href="/collaborations">Collaborations</a></li>
                     <li class="nav-item"><a class="nav-link" href="/sponsor">Sponsor Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
@@ -41,26 +57,42 @@
         <section class="portfolio-block projects-cards">
             <div class="container">
                 <div class="heading">
-                    <h2>Recent Events</h2>
+                    <h2>URL Shortener</h2>
                 </div>
                 <div class="row">
-                {% if events %}
-                    {% for event in events %}
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card border-0">
-                            <a href="{% url 'event_detail' event.slug %}">
-                                <img class="card-img-top scale-on-hover" style="border-radius: 18px;" src="{{ event.image.url }}" alt="Card Image">
-                            </a>
-                            <div class="card-body">
-                                <h6>
-                                    <a href="{% url 'event_detail' event.slug %}">{{ event.title }}</a>
-                                </h6>
-                                <p class="text-muted card-text">{{ event.description|truncatewords:20|safe }}</p>
-                            </div>
+                    <div class="col-md-12">
+                        <form method="post">
+                            {% csrf_token %}
+                            <b><label for="original_url">Enter URL:</label></b>
+                            <input style="border: #ff9100 2px solid;border-radius: 7px;padding: 10.5px 18px;" type="url" id="original_url" name="original_url" required>
+                            <button class="tensorsite-button" type="submit">Shorten</button>
+                        </form>
+                        {% if short_url %}
+                        <div class="col-md-6 text-center">
+                            <p>Shortened URL: <a href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
                         </div>
+                        {% endif %}
+                        <hr class="w-100 mt-5">
+                        <div class="heading mt-5">
+                            <h2>All URLS </h2>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Original URL</th>
+                                    <th>Shortened URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for url in urls %}
+                                <tr>
+                                    <td>{{ url.original_url }}</td>
+                                    <td><a href="{{ url.tfug_url }}" target="_blank">{{ url.tfug_url }}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    {% endfor %}
-                {% endif %}
                 </div>
             </div>
         </section>
@@ -71,20 +103,18 @@
             <!-- Section: Social media -->
             <section class="mb-4">
                 <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/" role="button"><i
-                        class="fab fa-instagram"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/tfug_ghaziabad/"
+                    role="button"><i class="fab fa-instagram"></i></a>
 
                 <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/" role="button"><i
-                        class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/groups/9315575/"
+                    role="button"><i class="fab fa-linkedin-in"></i></a>
 
                 <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad" role="button"><i
-                        class="fab fa-github"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/TFUG-Ghaziabad"
+                    role="button"><i class="fab fa-github"></i></a>
             </section>
-            <!-- Section: Social media -->
         </div>
-        <!-- Grid container -->
 
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
