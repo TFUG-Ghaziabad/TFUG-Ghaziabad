@@ -1,0 +1,140 @@
+:root {
+    --blue50: #e8f0fe;
+    --blue100: #d2e3fc;
+    --blue200: #aecbfa;
+    --blue300: #8ab4f8;
+    --blue400: #669df6;
+    --blue500: #4285f4;
+    --blue600: #1a73e8;
+    --blue700: #1967d2;
+    --blue800: #185abc;
+    --blue900: #174e86;
+    --red50: #fce8e6;
+    --red100: #fad2cf;
+    --red200: #f6aea9;
+    --red300: #f28b82;
+    --red400: #ee675c;
+    --red500: #ea4335;
+    --red600: #d93025;
+    --red700: #c5221f;
+    --red800: #b31412;
+    --red900: #a50e0e;
+    --orange50: #fef7e0;
+    --orange100: #feefc3;
+    --orange200: #fde293;
+    --orange300: #fdd663;
+    --orange400: #fcc934;
+    --orange500: #fbbc04;
+    --orange600: #f9ab00;
+    --orange700: #f29900;
+    --orange800: #ea8600;
+    --orange900: #e37400;
+    --green50: #e6f4ea;
+    --green100: #ceead6;
+    --green200: #a8dab5;
+    --green300: #81c995;
+    --green400: #5bb974;
+    --green500: #34a853;
+    --green600: #1e8e3e;
+    --green700: #188038;
+    --green800: #137333;
+    --green900: #0d652d;
+    --white: #ffffff;
+    --dark: #435066;
+    --primary-orange: #FF6F00;
+    --secondary-orange: #FFA800;
+    --primary-gray: #616161;
+    --secondary-gray: #CCCCCC;
+    --tertiary-gray: #E6E6E6;
+    --black: #000000;
+
+  }
+html{
+    /* overflow-x: hidden; */
+}
+body{
+    font-family: Google Sans,Roboto,Helvetica Neue,sans-serif;
+}
+a{
+    text-decoration: none;
+}
+.active{
+    color: var(--dark)!important;
+}
+.navbar{
+    width: 125px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 1046;
+    background-color: white;
+    box-shadow: 10px 10px 30px -10px #0000001f;
+}
+.container{
+    max-width: calc(100% - 125px);
+    padding: 0;
+    margin-left: 125px;
+}
+.container-fluid{
+    rotate: -90deg;
+    text-orientation: mixed;
+    width: 100%;
+    justify-content: center!important;
+}
+.container-fluid img{
+    height: 80px;
+}
+.nav-menu{
+    position: absolute;
+    top: 3rem;
+}
+.offcanvas{
+    color: var(--dark);
+}
+.offcanvas-body{
+    display: flex;
+    align-items: center;
+    font-size: x-large;
+    font-family: "Special Elite", serif;
+}
+.offcanvas a{
+    color: var(--primary-orange);
+}
+.offcanvas a:hover{
+    color: var(--dark);
+}
+.offcanvas.offcanvas-start{
+    left: 125px;
+}
+.row{
+    display: flex;
+    width: 100%;
+}
+.col{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    padding-inline:0;
+}
+.col a{
+    color: var(--dark);
+    text-align: start;
+    padding: 10px;
+    font-size: medium;
+}
+.col a:hover{
+    color: var(--primary-orange);
+}
+.col-7{
+    width: calc(100% * 7 / 12);
+}
+.col-5{
+    width: calc(100% * 5 / 12);
+}
+.col-6{
+    width: calc(100% * 6 / 12);
+}
+footer{
+    max-width: calc(100% - 125px);
+    margin-left: 125px;
+}
