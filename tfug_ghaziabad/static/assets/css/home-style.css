@@ -159,7 +159,7 @@ section{
 
 .events h2, .events p{
     margin-bottom: 1rem;
-    background: linear-gradient(180deg, #FFA800 0%, #FF6F00 100%);
+    background: linear-gradient(180deg, var(--secondary-orange) 0%, var(--primary-orange) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -201,9 +201,6 @@ section{
     border-radius: 16px;
     background: #FFF;
 }
-.bottom{
-    background: linear-gradient(180deg, #FFA800 0%, #FF6F00 100%);
-}
 .card-icon {
     margin-bottom: 1rem;
     width: 32px;
@@ -218,6 +215,93 @@ section{
     color: var(--primary-orange);
     text-decoration: none;
 }
+.contact-join-section {
+    height: 550px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: url("../img/patterns/curved-check-vector.svg"),linear-gradient(180deg, var(--secondary-orange) 0%, var(--primary-orange) 100%);
+    padding: 43px 121px;
+    position: relative;
+}
+
+.contact-box, .join-box {
+    width: 410px;
+    height: 469px;
+    background: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+}
+
+h2 {
+    color: var(--dark);
+    font-size: 32px;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contact-description, .join-description {
+    color: var(--dark);
+    font-size: 10px;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 7px;
+    margin: 8px 0;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+    font-size: 10px;
+}
+
+textarea {
+    height: 80px;
+}
+
+.send-btn {
+    border: none;
+    color: white;
+    font-size: x-small;
+    width: 100px;
+    padding: 8px;
+    background: linear-gradient(90deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+
+.social-links li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    color: var(--dark);
+    font-size: 10px;
+    font-family: Poppins, sans-serif;
+}
+
+.social-links img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.social-links li a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
 
