@@ -224,6 +224,8 @@ section{
     background: url("../img/patterns/curved-check-vector.svg"),linear-gradient(180deg, var(--secondary-orange) 0%, var(--primary-orange) 100%);
     padding: 43px 121px;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .contact-box, .join-box {
@@ -234,6 +236,7 @@ section{
     border-radius: 8px;
     padding: 20px;
     text-align: left;
+    margin-inline: 5%;
 }
 
 h2 {
@@ -302,8 +305,15 @@ textarea {
     text-decoration: none;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
+
+    section{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10% !important;
+    }
 
     .about-card,
     .tensorflow-info,
@@ -311,8 +321,127 @@ textarea {
         grid-template-columns: 1fr;
     }
 
+    .top-nav{
+        padding: 20px;
+        text-align: center;
+    }
+    .top-nav span{
+        padding: 0px;
+        padding-right: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: url("../img/patterns/Dotted Pattern 1.svg"), linear-gradient(135deg, rgba(255,168,0,1) 50%, rgba(255,111,0,1) 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        padding: 80px 10px 20px 30px!important;
+        min-height: 300px;
+        position: relative;
+        background-size: 124vw 50vh;
+        background-position: right bottom;
+        background-repeat: space;
+    }
+
+    .hero-content img {
+        padding: 0!important;
+        width: 200px!important;
+    }
+    .hero-content h1 {
+        font-size: 36px;
+        line-height: 1.2;
+        padding: 0!important;
+    }
+
+    /* About Section */
+    .about-tfug, .about-tf {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .about-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .team-photo {
+        width: 100%;
+        margin: 0;
+    }
+
+    .team-logo{
+        zoom: 0.5;
+    }
+
+    .tf-logo-container {
+        width: max-content;
+        zoom: 0.7;
+        margin-inline: 15%;
+    }
+
+    .tf-text{
+        text-align: center;
+        width: 100%;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    /* Events Section */
+    .events {
+        text-align: center;
+        padding: 30px 10px;
+    }
+
+    .events h2 {
+        font-size: 22px;
+    }
+
+    .events p {
+        font-size: 14px;
+    }
+
+    .events-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    /* Cards Section */
     .cards {
-        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .card {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .card img {
+        width: 50px;
+    }
+
+    /* Contact & Join Section */
+    .contact-join-section {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        height: auto;
+    }
+
+    .contact-box, .join-box {
+        width: 100%;
+        height: auto;
+    }
+
+    .social-links img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
     }
 
 }
