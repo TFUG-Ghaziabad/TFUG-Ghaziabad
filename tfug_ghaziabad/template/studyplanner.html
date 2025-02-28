@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block style %} 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .study-planner-app{
+            width: 80%;
+            margin-inline: 10%;
+            min-height: 100vh;
+            padding-top: 5%;
+        }
+        .hidden { display: none; }
+        .spinner-border { display: none; }
+    </style>
+
+{% endblock style %}
+
+{% block body %}
+    <div class="study-planner-app mt-5">
+        <h2 class="text-center mb-4">📚 Study Planner - Upload PDFs</h2>
+
+        <!-- Instructions -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Instructions:</h5>
+                <ul>
+                    <li>Click on the "Check API Health" button to ensure the API is running.</li>
+                    <li>Select one or more PDF files using the file input field.</li>
+                    <li>Click the "Upload PDFs" button to upload the selected files.</li>
+                    <li>Once the PDFs are uploaded successfully, click on the "View Study Plan" button to fetch and view the study plan in Excel format.</li>
+                    <li>The study plan will be displayed in a table format below the button.</li>
+                    <li>Click the "Download Study Plan" button to download the study plan in Excel format.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Health Check Button -->
+        <div class="text-center mb-3 mt-3">
+            <button id="health-check" class="btn btn-outline-primary">🔍 Check API Health</button>
+        </div>
+
+        <!-- PDF Upload Section -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">📂 Upload PDFs</h5>
+                <form id="upload-form">
+                    <input type="file" id="pdf-files" class="form-control mb-2" multiple accept="application/pdf">
+                    <button type="submit" class="btn btn-success">⬆ Upload PDFs</button>
+                </form>
+                <div id="upload-status" class="mt-2 text-success"></div>
+                <ul id="pdf-list" class="list-group mt-3"></ul>
+            </div>
+        </div>
+
+        <!-- Buttons to Fetch & Display Excel -->
+        <div class="text-center mt-4">
+            <button id="view-excel" class="btn btn-primary hidden">📊 View Study Plan</button>
+            <button id="download-excel" class="btn btn-secondary hidden">📥 Download Study Plan</button>
+        </div>
+
+        <!-- Excel Table Display -->
+        <div id="excel-table-container" class="hidden mt-4">
+            <h5 class="text-center">📊 Study Plan Analysis</h5>
+            <div class="table-responsive">
+                <table id="excel-table" class="table table-bordered table-striped"></table>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="text-center mt-3">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="loading-text mt-2"></p>
+        </div>
+    </div>
+
+    <!-- JavaScript Section -->
+    <script>
+        const API_BASE_URL = "https://study-planner-api-135991140341.asia-south2.run.app";
+
+        // Health Check API
+        $("#health-check").on("click", async function() {
+            try {
+                let response = await fetch(`${API_BASE_URL}/health_check/`, { method: "GET", mode: "cors" });
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                
+                let data = await response.json();
+                alert("✅ API is up and running!");
+            } catch (error) {
+                alert("❌ Failed to reach API: " + error.message);
+            }
+        });
+
+        // Upload PDFs
+        $("#upload-form").on("submit", async function(event) {
+            event.preventDefault();
+            let files = $("#pdf-files")[0].files;
+            if (files.length === 0) return alert("⚠ Please select at least one PDF.");
+
+            let formData = new FormData();
+            for (let file of files) {
+                formData.append("files", file);
+                $("#pdf-list").append(`<li class="list-group-item">${file.name}</li>`);
+            }
+
+            $(".spinner-border").show();  // Show loader
+            $(".loading-text").text("Processing PDFs...");
+
+            try {
+                let response = await fetch(`${API_BASE_URL}/upload_pdfs/`, { method: "POST", body: formData });
+                let result = await response.json();
+
+                if (response.ok) {
+                    alert("✅ PDFs uploaded successfully!");
+                    $("#view-excel").removeClass("hidden");
+                } else {
+                    alert("❌ Error: " + result.error);
+                }
+            } catch (error) {
+                alert("❌ Failed to upload PDFs.");
+            } finally {
+                $(".spinner-border").hide();
+                $(".loading-text").text("");
+            }
+        });
+
+        // Fetch & Display Excel
+        $("#view-excel").on("click", async function() {
+            $(".spinner-border").show();
+            $(".loading-text").text("Fetching Study Plan...");
+
+            try {
+                let response = await fetch(`${API_BASE_URL}/download_excel/`);
+                if (!response.ok) return alert("⚠ No Excel file found. Try again later.");
+
+                let blob = await response.blob();
+                let url = URL.createObjectURL(blob);
+
+                // Read & Display Excel
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let data = new Uint8Array(e.target.result);
+                    let workbook = XLSX.read(data, { type: "array" });
+                    let sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    $("#excel-table").html(XLSX.utils.sheet_to_html(sheet));
+                    $("#excel-table-container").removeClass("hidden");
+                    $("#download-excel").removeClass("hidden");
+                };
+                reader.readAsArrayBuffer(blob);
+            } catch (error) {
+                alert("❌ Failed to fetch the Excel file.");
+            } finally {
+                $(".spinner-border").hide();
+                $(".loading-text").text("");
+            }
+        });
+
+        // Download Excel
+        $("#download-excel").on("click", async function() {
+            try {
+                let response = await fetch(`${API_BASE_URL}/download_excel/`);
+                if (!response.ok) return alert("⚠ No Excel file found. Try again later.");
+
+                let blob = await response.blob();
+                let url = URL.createObjectURL(blob);
+
+                // Download Excel
+                let a = document.createElement("a");
+                a.href = url;
+                a.download = "study_plan.xlsx";
+                a.click();
+            } catch (error) {
+                alert("❌ Failed to download the Excel file.");
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock body %}
+</html>

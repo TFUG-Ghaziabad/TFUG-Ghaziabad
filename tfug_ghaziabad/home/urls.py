@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path # type: ignore
 from . import views
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     path('launch-counter/', views.launch_counter_view, name='launch_counter'),
     path('certificate/verification/', views.certificate_verification_view, name='certificate_verification'),
     path('social-pages/<str:page>/', views.social_page_view, name='social_page'),
+    path('studyplanner/', views.studyplanner, name='studyplanner'),
 ]
 
 # Custom error handling

@@ -55,3 +55,6 @@ def certificate_verification_view(request):
 
 def social_page_view(request, page):
     return render(request, f'Social-Pages/{page}.html')
+
+def studyplanner(request):
+    return render(request, 'studyplanner.html')
