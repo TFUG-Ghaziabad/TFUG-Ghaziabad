@@ -76,7 +76,8 @@
 
     <!-- JavaScript Section -->
     <script>
-        const API_BASE_URL = "https://study-planner-api-135991140341.asia-south2.run.app";
+        //const API_BASE_URL = "https://study-planner-api-135991140341.asia-south2.run.app";
+        const API_BASE_URL = "http://127.0.0.1:8080";
 
         // Health Check API
         $("#health-check").on("click", async function() {
@@ -91,37 +92,58 @@
             }
         });
 
-        // Upload PDFs
-        $("#upload-form").on("submit", async function(event) {
+     // Upload PDFs with request queue handling
+        $("#upload-form").on("submit", async function (event) {
             event.preventDefault();
             let files = $("#pdf-files")[0].files;
             if (files.length === 0) return alert("⚠ Please select at least one PDF.");
-
+        
             let formData = new FormData();
             for (let file of files) {
                 formData.append("files", file);
                 $("#pdf-list").append(`<li class="list-group-item">${file.name}</li>`);
             }
-
-            $(".spinner-border").show();  // Show loader
+        
+            $(".spinner-border").show(); // Show loader
             $(".loading-text").text("Processing PDFs...");
-
-            try {
-                let response = await fetch(`${API_BASE_URL}/upload_pdfs/`, { method: "POST", body: formData });
-                let result = await response.json();
-
-                if (response.ok) {
-                    alert("✅ PDFs uploaded successfully!");
-                    $("#view-excel").removeClass("hidden");
-                } else {
-                    alert("❌ Error: " + result.error);
+        
+            let retryCount = 0;
+            const maxRetries = 5; // Number of times to retry before failing
+            const retryDelay = 5000; // Delay between retries (5 seconds)
+        
+            while (retryCount < maxRetries) {
+                try {
+                    let response = await fetch(`${API_BASE_URL}/upload_pdfs/`, {
+                        method: "POST",
+                        body: formData,
+                    });
+                
+                    let result = await response.json();
+                
+                    if (response.ok) {
+                        alert("✅ PDFs uploaded successfully!");
+                        $("#view-excel").removeClass("hidden");
+                        break; // Exit the retry loop on success
+                    } else if (result.message.includes("Another request is being processed")) {
+                        alert(`⏳ Request is queued. Retrying in ${retryDelay / 1000} seconds...`);
+                        retryCount++;
+                        await new Promise((resolve) => setTimeout(resolve, retryDelay)); // Wait before retrying
+                    } else {
+                        alert("❌ Error: " + result.error);
+                        break;
+                    }
+                } catch (error) {
+                    alert("❌ Failed to upload PDFs.");
+                    break;
                 }
-            } catch (error) {
-                alert("❌ Failed to upload PDFs.");
-            } finally {
-                $(".spinner-border").hide();
-                $(".loading-text").text("");
             }
+        
+            if (retryCount === maxRetries) {
+                alert("❌ Too many requests. Please try again later.");
+            }
+        
+            $(".spinner-border").hide();
+            $(".loading-text").text("");
         });
 
         // Fetch & Display Excel
