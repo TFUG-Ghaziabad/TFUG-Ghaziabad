@@ -16,6 +16,11 @@ urlpatterns = [
     path('certificate/verification/', views.certificate_verification_view, name='certificate_verification'),
     path('social-pages/<str:page>/', views.social_page_view, name='social_page'),
     path('studyplanner/', views.studyplanner, name='studyplanner'),
+    
+    
+    
+    
+    path('calander2025/', views.calander, name='calander'),
 ]
 
 # Custom error handling

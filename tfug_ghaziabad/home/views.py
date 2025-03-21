@@ -58,3 +58,6 @@ def social_page_view(request, page):
 
 def studyplanner(request):
     return render(request, 'studyplanner.html')
+
+def calander(request):
+    return render(request, 'calander2025.html')
